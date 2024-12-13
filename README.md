@@ -1,1 +1,1 @@
-# Hogwrst
+# Hogwarts
