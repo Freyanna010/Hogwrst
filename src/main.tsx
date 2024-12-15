@@ -9,7 +9,7 @@ import { HashRouter as Router } from "react-router-dom";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <StoreProvider store={store}>
-      <Router basename="/Hogwarts">
+      <Router >
         <App />
       </Router>
     </StoreProvider>
