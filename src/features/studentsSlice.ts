@@ -55,7 +55,7 @@ const studentsSlice = createSlice({
       );
     },
     resetFilter: (state) => {
-      state.students = [...state.allStudents]; // Сбрасываем фильтр
+      state.students = [...state.allStudents]; 
     },
   },
   extraReducers(builder) {
