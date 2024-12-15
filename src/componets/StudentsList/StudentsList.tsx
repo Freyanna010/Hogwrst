@@ -84,7 +84,6 @@ const StudentsList: FC = () => {
           >
             {showFavorites ? "All students" : "Favorite students"}
           </Button>
-
           <Button type="text" onClick={handleCreate} icon={<PlusOutlined />} />
         </Col>
       </Row>
