@@ -49,7 +49,7 @@ const StudentCard: FC<Props> = (props) => {
     <Card
       loading={studentsLoading}
       style={{
-        width: 270,
+        width: "100%",
         backgroundColor: CardColor,
         cursor: "pointer",
         borderColor: color,
@@ -84,8 +84,8 @@ const StudentCard: FC<Props> = (props) => {
           />
         </Tooltip>
       </Flex>
+      <Flex justify="center" align="center" vertical>       <Image width={230} height={300} src={image} /></Flex>
 
-      <Image width={220} height={300} src={image} />
       <Flex justify="center" align="center" vertical>
         <Title
           level={4}

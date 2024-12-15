@@ -99,7 +99,7 @@ const StudentsList: FC = () => {
             <Button
               type="primary"
               style={{
-                width: 270,
+                width: "100%",
                 textAlign: "center",
                 color: color,
                 border: border,
@@ -115,7 +115,7 @@ const StudentsList: FC = () => {
 
       <Row gutter={[24, 24]} justify="start" style={{ width: "100%" }}>
         {filteredStudent.map((student) => (
-          <Col key={student.id} xs={12} sm={12} md={12} lg={6} xl={6}>
+          <Col key={student.id} xs={12} sm={12} md={12} lg={8} xl={6}>
             <StudentCard
               id={student.id}
               image={student.image || avatar}
