@@ -50,10 +50,11 @@ const StudentCard: FC<Props> = (props) => {
       loading={studentsLoading}
       style={{
         width: "100%",
+
         backgroundColor: CardColor,
         cursor: "pointer",
         borderColor: color,
-        padding: 2,
+        padding: "1px 4px" ,
       }}
       hoverable
       onClick={() => handleCardClick(id)}
@@ -84,7 +85,7 @@ const StudentCard: FC<Props> = (props) => {
           />
         </Tooltip>
       </Flex>
-      <Flex justify="center" align="center" vertical>       <Image width={230} height={300} src={image} /></Flex>
+      <Flex justify="center" align="center" vertical>       <Image width={"auto"} height={320} src={image} style={{ minWidth: 255 }} /></Flex>
 
       <Flex justify="center" align="center" vertical>
         <Title
