@@ -20,7 +20,7 @@ function App() {
   );
 
   useEffect(() => {
-    dispatch(fetchStudentsData());   
+    dispatch(fetchStudentsData());
   }, [dispatch]);
 
   return (
