@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { addNewStudent } from "@/features/studentsSlice";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const StudentForm: FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -64,13 +65,14 @@ const StudentForm: FC = () => {
         return acc;
       }, {} as any);
 
+    newObj.id = uuidv4();
+
     if (fileList.length > 0) {
       newObj.image = fileList[0].thumbUrl;
     }
-    
-    dispatch(addNewStudent(newObj))
-    navigate("/students")
-    
+
+    dispatch(addNewStudent(newObj));
+    navigate("/students");
   };
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
     errorInfo

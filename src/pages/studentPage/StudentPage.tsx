@@ -9,13 +9,12 @@ const StudentPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
   const { currentStudent } = useSelector((state: RootState) => state.students);
-
+// TODO: добавать переход на нового студента
   useEffect(() => {
     if (id) {
       dispatch(fetchStudentDataById(id));
       console.log(currentStudent);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
