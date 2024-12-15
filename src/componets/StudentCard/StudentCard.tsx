@@ -26,7 +26,7 @@ const StudentCard: FC<Props> = (props) => {
 
   const handleLikeClick = (
     studentId: string,
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
@@ -34,7 +34,7 @@ const StudentCard: FC<Props> = (props) => {
   };
   const handleDeleteClick = (
     studentId: string,
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.stopPropagation();
     onDelete(studentId);
@@ -54,7 +54,7 @@ const StudentCard: FC<Props> = (props) => {
         backgroundColor: CardColor,
         cursor: "pointer",
         borderColor: color,
-        padding: "1px 4px" ,
+        padding: "1px 4px",
       }}
       hoverable
       onClick={() => handleCardClick(id)}
@@ -85,7 +85,9 @@ const StudentCard: FC<Props> = (props) => {
           />
         </Tooltip>
       </Flex>
-      <Flex justify="center" align="center" vertical>       <Image width={"auto"} height={320} src={image} style={{ minWidth: 255 }} /></Flex>
+      <Flex justify="center" align="center">
+        <Image height={320} src={image} style={{ minWidth: 220 }} />
+      </Flex>
 
       <Flex justify="center" align="center" vertical>
         <Title
