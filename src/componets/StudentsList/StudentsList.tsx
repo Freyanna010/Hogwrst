@@ -90,12 +90,12 @@ const StudentsList: FC = () => {
       </Row>
 
       <Row
-        gutter={[28, 28]}
+        gutter={[24, 24]}
         justify="start"
         style={{ width: "100%", marginBottom: "25px" }}
       >
         {["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"].map((house) => (
-          <Col key={house} xs={14} sm={14} md={14} lg={6} xl={6}>
+          <Col key={house} xs={12} sm={12} md={12} lg={6} xl={6}>
             <Button
               type="primary"
               style={{
@@ -113,9 +113,9 @@ const StudentsList: FC = () => {
         ))}
       </Row>
 
-      <Row gutter={[28, 28]} justify="start" style={{ width: "100%" }}>
+      <Row gutter={[24, 24]} justify="start" style={{ width: "100%" }}>
         {filteredStudent.map((student) => (
-          <Col key={student.id} xs={14} sm={14} md={14} lg={6} xl={6}>
+          <Col key={student.id} xs={12} sm={12} md={12} lg={6} xl={6}>
             <StudentCard
               id={student.id}
               image={student.image || avatar}
