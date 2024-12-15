@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchStudentDataById, fetchStudentsData } from "./studentsThunks";
+import {  fetchStudentsData } from "./studentsThunks";
 import { Student } from "../types/types";
 
 interface StudentsState {
   students: Student[];
   allStudents: Student[];
   favoriteStudents: string[];
+  filteredStudents: Student[]
   currentStudent: null | Student[];
   studentsLoading: boolean;
   studentsError: null | string;
@@ -16,6 +17,7 @@ interface StudentsState {
 const initialState: StudentsState = {
   allStudents: [],
   students: [],
+  filteredStudents: [], 
   favoriteStudents: [],
   currentStudent: null,
   studentsLoading: false,
@@ -35,6 +37,9 @@ const studentsSlice = createSlice({
       state.students = state.students.filter(
         (student) => student.id !== action.payload,
       );
+      state.filteredStudents = state.filteredStudents.filter(
+        (student) => student.id !== action.payload,
+      );
     },
     addFavoriteStudents: (state, action: PayloadAction<string>) => {
       if (state.favoriteStudents.includes(action.payload)) {
@@ -50,12 +55,17 @@ const studentsSlice = createSlice({
       state.students.unshift(action.payload);
     },
     filterStudentsByHouse: (state, action: PayloadAction<string>) => {
-      state.students = state.allStudents.filter(
+      state.filteredStudents = state.allStudents.filter(
         (student) => student.house === action.payload,
       );
     },
     resetFilter: (state) => {
-      state.students = [...state.allStudents]; 
+      state.filteredStudents = [...state.allStudents];
+    },
+    showFavoriteStudents: (state) => {
+      state.filteredStudents = state.allStudents.filter((student) =>
+        state.favoriteStudents.includes(student.id),
+      );
     },
   },
   extraReducers(builder) {
@@ -67,23 +77,11 @@ const studentsSlice = createSlice({
       .addCase(fetchStudentsData.fulfilled, (state, action) => {
         state.studentsLoading = false;
         state.allStudents = action.payload;
-        state.students = action.payload;
+        state.filteredStudents = action.payload; // Отображаем всех студентов по умолчанию
       })
       .addCase(fetchStudentsData.rejected, (state, action) => {
         state.studentsLoading = false;
         state.studentsError = action.payload as string;
-      })
-      .addCase(fetchStudentDataById.pending, (state) => {
-        state.studentLoading = true;
-        state.studentError = null;
-      })
-      .addCase(fetchStudentDataById.fulfilled, (state, action) => {
-        state.studentLoading = false;
-        state.currentStudent = action.payload;
-      })
-      .addCase(fetchStudentDataById.rejected, (state, action) => {
-        state.studentLoading = false;
-        state.studentError = action.payload as string;
       });
   },
 });
@@ -94,5 +92,6 @@ export const {
   addNewStudent,
   filterStudentsByHouse,
   resetFilter,
+  showFavoriteStudents,
 } = studentsSlice.actions;
 export default studentsSlice.reducer;

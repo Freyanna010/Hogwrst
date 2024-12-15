@@ -9,6 +9,7 @@ import {
   deleteStudent,
   filterStudentsByHouse,
   resetFilter,
+  showFavoriteStudents,
 } from "@/features/studentsSlice";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
@@ -16,33 +17,32 @@ import { hogwartsTheme } from "@/styles/theme";
 
 const StudentsList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { students, favoriteStudents, studentsLoading } = useSelector(
-    (state: RootState) => state.students,
+  const { filteredStudents,  studentsLoading } = useSelector(
+    (state: RootState) => state.students
   );
 
   const { Title } = Typography;
   const { color, shadow, border, colorPrimary } = hogwartsTheme.token;
 
-  const [chowFavoriteStudents, setChowFavoriteStudents] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const navigate = useNavigate();
 
-  const handleShowStudentsClick = () =>
-    setChowFavoriteStudents(!chowFavoriteStudents);
-  const handelCreate = () => navigate("/create-student");
+  const handleShowStudentsClick = () => {
+    setShowFavorites(!showFavorites);
+    if (!showFavorites) {
+      dispatch(showFavoriteStudents());
+    } else {
+      dispatch(resetFilter());
+    }
+  };
+
+  const handleCreate = () => navigate("/create-student");
   const handleLikeClick = (studentId: string) =>
     dispatch(addFavoriteStudents(studentId));
   const handleDeleteClick = (studentId: string) =>
     dispatch(deleteStudent(studentId));
-  const handleHouse = (house: string) => {
-    dispatch(filterStudentsByHouse(house));
-  };
-  const handelHogwartsStudents = () => {
-    dispatch(resetFilter());
-  };
-
-  const filteredStudent = chowFavoriteStudents
-    ? students.filter((student) => favoriteStudents.includes(student.id))
-    : students;
+  const handleHouse = (house: string) => dispatch(filterStudentsByHouse(house));
+  const handleTitle = () => dispatch(resetFilter());
 
   return (
     <>
@@ -61,7 +61,7 @@ const StudentsList: FC = () => {
       >
         <Col style={{ flex: 1 }}>
           <Title
-            onClick={handelHogwartsStudents}
+            onClick={handleTitle}
             level={2}
             style={{
               fontFamily: "Almendra",
@@ -82,10 +82,10 @@ const StudentsList: FC = () => {
             onClick={handleShowStudentsClick}
             style={{ textTransform: "uppercase" }}
           >
-            {chowFavoriteStudents ? "All students" : "Favorite students"}
+            {showFavorites ? "All students" : "Favorite students"}
           </Button>
 
-          <Button type="text" onClick={handelCreate} icon={<PlusOutlined />} />
+          <Button type="text" onClick={handleCreate} icon={<PlusOutlined />} />
         </Col>
       </Row>
 
@@ -114,7 +114,7 @@ const StudentsList: FC = () => {
       </Row>
 
       <Row gutter={[24, 24]} justify="start" style={{ width: "100%" }}>
-        {filteredStudent.map((student) => (
+        {filteredStudents.map((student) => (
           <Col key={student.id} xs={12} sm={12} md={12} lg={8} xl={6}>
             <StudentCard
               id={student.id}
