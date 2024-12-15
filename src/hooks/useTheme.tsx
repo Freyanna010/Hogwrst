@@ -1,5 +1,5 @@
 import { Theme } from "@/styles/theme";
-import React, { createContext, FC, ReactNode, useContext } from "react";
+import { createContext, FC, ReactNode, useContext } from "react";
 
 const ThemeContext = createContext<Theme | undefined>(undefined);
 
@@ -14,6 +14,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ theme, children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = (): Theme => {
   const context = useContext(ThemeContext);
   if (!context) {

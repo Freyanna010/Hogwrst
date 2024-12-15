@@ -15,7 +15,7 @@ import Container from "./componets/ui/Container";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const { studentsError, students } = useSelector(
+  const { studentsError } = useSelector(
     (state: RootState) => state.students,
   );
 

@@ -1,4 +1,3 @@
-import React from "react";
 import video from "@assets/Harry_Potter_Magic_Awakened.mp4";
 
 const VideoBg = () => {

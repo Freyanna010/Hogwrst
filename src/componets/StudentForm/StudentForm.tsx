@@ -1,3 +1,4 @@
+import { FC, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -9,7 +10,6 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
-import React, { FC, useState } from "react";
 import BgCard from "../ui/BgCard";
 import { FieldType } from "@/types/types";
 import { useDispatch } from "react-redux";
@@ -58,10 +58,11 @@ const StudentForm: FC = () => {
           return [key, value];
         }
       })
-      .reduce((acc: any, [key, value]) => {
+      .reduce((acc, [key, value]) => {
         acc[key] = value;
+
         return acc;
-      }, {});
+      }, {} as any);
 
     if (fileList.length > 0) {
       newObj.image = fileList[0].thumbUrl;

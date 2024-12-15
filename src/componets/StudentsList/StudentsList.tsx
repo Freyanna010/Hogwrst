@@ -1,6 +1,6 @@
 import { AppDispatch, RootState } from "@/store/store";
 import { Button, Col, Row, Typography } from "antd";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StudentCard from "../StudentCard";
 import avatar from "@assets/hogAvatar.webp";

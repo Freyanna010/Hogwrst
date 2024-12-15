@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import classes from "./Container.module.scss";
 
 

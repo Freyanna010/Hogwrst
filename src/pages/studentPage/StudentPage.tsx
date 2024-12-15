@@ -1,7 +1,7 @@
 import StudentInfoCard from "@/componets/StudentInfoCard";
 import { fetchStudentDataById } from "@/features/studentsThunks";
 import { AppDispatch, RootState } from "@/store/store";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -15,6 +15,7 @@ const StudentPage = () => {
       dispatch(fetchStudentDataById(id));
       console.log(currentStudent);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
