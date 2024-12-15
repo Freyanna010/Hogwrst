@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {  fetchStudentsData } from "./studentsThunks";
+import { fetchStudentDataById, fetchStudentsData } from "./studentsThunks";
 import { Student } from "../types/types";
 
 interface StudentsState {
-  students: Student[];
   allStudents: Student[];
   favoriteStudents: string[];
-  filteredStudents: Student[]
+  filteredStudents: Student[];
   currentStudent: null | Student[];
   studentsLoading: boolean;
   studentsError: null | string;
@@ -16,8 +15,7 @@ interface StudentsState {
 
 const initialState: StudentsState = {
   allStudents: [],
-  students: [],
-  filteredStudents: [], 
+  filteredStudents: [],
   favoriteStudents: [],
   currentStudent: null,
   studentsLoading: false,
@@ -32,19 +30,16 @@ const studentsSlice = createSlice({
   reducers: {
     deleteStudent: (state, action: PayloadAction<string>) => {
       state.allStudents = state.allStudents.filter(
-        (student) => student.id !== action.payload,
-      );
-      state.students = state.students.filter(
-        (student) => student.id !== action.payload,
+        (student) => student.id !== action.payload
       );
       state.filteredStudents = state.filteredStudents.filter(
-        (student) => student.id !== action.payload,
+        (student) => student.id !== action.payload
       );
     },
     addFavoriteStudents: (state, action: PayloadAction<string>) => {
       if (state.favoriteStudents.includes(action.payload)) {
         state.favoriteStudents = state.favoriteStudents.filter(
-          (id) => id !== action.payload,
+          (id) => id !== action.payload
         );
       } else {
         state.favoriteStudents.push(action.payload);
@@ -52,11 +47,11 @@ const studentsSlice = createSlice({
     },
     addNewStudent: (state, action: PayloadAction<Student>) => {
       state.allStudents.unshift(action.payload);
-      state.students.unshift(action.payload);
+      state.filteredStudents.unshift(action.payload);
     },
     filterStudentsByHouse: (state, action: PayloadAction<string>) => {
       state.filteredStudents = state.allStudents.filter(
-        (student) => student.house === action.payload,
+        (student) => student.house === action.payload
       );
     },
     resetFilter: (state) => {
@@ -64,7 +59,7 @@ const studentsSlice = createSlice({
     },
     showFavoriteStudents: (state) => {
       state.filteredStudents = state.allStudents.filter((student) =>
-        state.favoriteStudents.includes(student.id),
+        state.favoriteStudents.includes(student.id)
       );
     },
   },
@@ -77,11 +72,23 @@ const studentsSlice = createSlice({
       .addCase(fetchStudentsData.fulfilled, (state, action) => {
         state.studentsLoading = false;
         state.allStudents = action.payload;
-        state.filteredStudents = action.payload; // Отображаем всех студентов по умолчанию
+        state.filteredStudents = action.payload;
       })
       .addCase(fetchStudentsData.rejected, (state, action) => {
         state.studentsLoading = false;
         state.studentsError = action.payload as string;
+      })
+      .addCase(fetchStudentDataById.pending, (state) => {
+        state.studentLoading = true;
+        state.studentError = null;
+      })
+      .addCase(fetchStudentDataById.fulfilled, (state, action) => {
+        state.studentLoading = false;
+        state.currentStudent = action.payload;
+      })
+      .addCase(fetchStudentDataById.rejected, (state, action) => {
+        state.studentLoading = false;
+        state.studentError = action.payload as string;
       });
   },
 });
