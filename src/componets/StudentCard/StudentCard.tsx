@@ -4,6 +4,9 @@ import { HeartOutlined, HeartFilled, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getHouseColor } from "@/utils/colorUtils";
 import { hogwartsTheme } from "@/styles/theme";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { chooseStudentById } from "@/features/studentsSlice";
 
 interface Props {
   id: string;
@@ -17,6 +20,8 @@ interface Props {
 
 const StudentCard: FC<Props> = (props) => {
   const { id, image, name, house, onLike, onDelete, studentsLoading } = props;
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const { Title } = Typography;
   const { color } = hogwartsTheme.token;
@@ -41,6 +46,7 @@ const StudentCard: FC<Props> = (props) => {
   };
   const handleCardClick = (studentId: string) => {
     navigate(`/students/${studentId}`);
+    dispatch(chooseStudentById(studentId))
   };
 
   const CardColor = getHouseColor(house);

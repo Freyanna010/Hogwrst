@@ -14,7 +14,10 @@ const StudentInfoCard = () => {
     (state: RootState) => state.students,
   );
 
-  const student = currentStudent ? currentStudent[0] : null;
+  // const student = currentStudent ? currentStudent[0] : null;
+
+  // const [student] = currentStudent || []
+  // деструтуризироваь массив
 
   const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ const StudentInfoCard = () => {
 
   const handleReturn = () => navigate("/students");
 
-  if (student) {
+  if (currentStudent) {
     return (
       <>
         {studentLoading ? (
@@ -53,21 +56,21 @@ const StudentInfoCard = () => {
 
             <Row gutter={16}>
               <Col span={6}>
-                <Image width={220} height={300} src={student.image || avatar} />
+                <Image width={220} height={300} src={currentStudent.image || avatar} />
                 <Title level={1} style={{ paddingTop: 10 }}>
-                  {student.name}
+                  {currentStudent.name}
                 </Title>
-                {student.wizard && <Title level={4}>Wizard</Title>}
+                {currentStudent.wizard && <Title level={4}>Wizard</Title>}
               </Col>
 
               <Col span={18}>
-                {student.alternate_names.length > 0 && (
+                {currentStudent.alternate_names.length > 0 && (
                   <LineRow>
                     <Title level={4}>Alternate names:</Title>
-                    {student.alternate_names.map((name, index) => (
+                    {currentStudent.alternate_names.map((name, index) => (
                       <Title level={5} key={index}>
                         {name}
-                        {index < student.alternate_names.length - 1 && ", "}
+                        {index < currentStudent.alternate_names.length - 1 && ", "}
                       </Title>
                     ))}
                   </LineRow>
@@ -75,32 +78,32 @@ const StudentInfoCard = () => {
 
                 <LineRow>
                   <Title level={4}>Gender: </Title>
-                  <Title level={5}>{student.gender}</Title>
+                  <Title level={5}>{currentStudent.gender}</Title>
                 </LineRow>
 
                 <LineRow>
                   <Title level={4}>House: </Title>
-                  <Title level={5}>{student.house || "unknown"}</Title>
+                  <Title level={5}>{currentStudent.house || "unknown"}</Title>
                 </LineRow>
 
                 <LineRow>
                   <Title level={4}>Date of birth: </Title>
-                  <Title level={5}>{student.dateOfBirth || "unknown"}</Title>
+                  <Title level={5}>{currentStudent.dateOfBirth || "unknown"}</Title>
                 </LineRow>
 
                 <LineRow>
                   <Title level={4}>Age: </Title>
                   <Title level={5}>
-                    {student.dateOfBirth
-                      ? calculateAge(student.dateOfBirth)
+                    {currentStudent.dateOfBirth
+                      ? calculateAge(currentStudent.dateOfBirth)
                       : "unknown"}
                   </Title>
                 </LineRow>
 
-                {student.patronus && (
+                {currentStudent.patronus && (
                   <LineRow>
                     <Title level={4}>Patronus: </Title>
-                    <Title level={5}>{student.patronus}</Title>
+                    <Title level={5}>{currentStudent.patronus}</Title>
                   </LineRow>
                 )}
               </Col>

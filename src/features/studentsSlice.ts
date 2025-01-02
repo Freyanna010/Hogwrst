@@ -6,7 +6,7 @@ interface StudentsState {
   allStudents: Student[];
   favoriteStudents: string[];
   filteredStudents: Student[];
-  currentStudent: null | Student[];
+  currentStudent: null | Student;
   studentsLoading: boolean;
   studentsError: null | string;
   studentLoading: boolean;
@@ -48,6 +48,9 @@ const studentsSlice = createSlice({
     addNewStudent: (state, action: PayloadAction<Student>) => {
       state.allStudents.unshift(action.payload);
       state.filteredStudents.unshift(action.payload);
+    },
+    chooseStudentById: (state, action: PayloadAction<string>) => {
+      state.currentStudent =  state.allStudents.find(student => student.id === action.payload) ?? null;
     },
     filterStudentsByHouse: (state, action: PayloadAction<string>) => {
       state.filteredStudents = state.allStudents.filter(
@@ -97,8 +100,10 @@ export const {
   deleteStudent,
   addFavoriteStudents,
   addNewStudent,
+  chooseStudentById: addStudentById,
   filterStudentsByHouse,
   resetFilter,
   showFavoriteStudents,
+  chooseStudentById
 } = studentsSlice.actions;
 export default studentsSlice.reducer;

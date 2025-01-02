@@ -11,12 +11,14 @@ const StudentPage = () => {
   const { currentStudent } = useSelector((state: RootState) => state.students);
 // TODO: добавать переход на нового студента  
   useEffect(() => {
-    if (id) {
-      dispatch(fetchStudentDataById(id));
-      console.log(currentStudent);
-    }
+    // if (id) {
+    //   dispatch(fetchStudentDataById(id));
+    // }
+    console.log(currentStudent);
+    
   }, [dispatch]);
 
+  //TODO: передать пропсы
   return (
     <>
       <StudentInfoCard />

@@ -15,14 +15,15 @@ import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { hogwartsTheme } from "@/styles/theme";
 
+const { Title } = Typography;
+const { color, shadow, border, colorPrimary } = hogwartsTheme.token;
+
 const StudentsList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  
   const { filteredStudents,  studentsLoading } = useSelector(
     (state: RootState) => state.students
   );
-
-  const { Title } = Typography;
-  const { color, shadow, border, colorPrimary } = hogwartsTheme.token;
 
   const [showFavorites, setShowFavorites] = useState(false);
   const navigate = useNavigate();
